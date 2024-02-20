@@ -1,39 +1,87 @@
-Servicio de Autenticación con Roles y Permisos
+# Instrucciones para Microservicio de Autenticación con Roles y Permisos
+
 Este servicio proporciona funcionalidades de autenticación para usuarios, con la capacidad de asignar roles y permisos, así como realizar operaciones de registro e inicio de sesión.
 
-Funcionalidades
-Registro de usuarios con nombre de usuario y contraseña.
-Inicio de sesión seguro utilizando JWT (JSON Web Tokens).
-Asignación de roles a los usuarios.
-Definición de permisos asociados a roles.
-Verificación de permisos antes de permitir el acceso a recursos protegidos.
-Tecnologías Utilizadas
-Node.js: Plataforma de tiempo de ejecución de JavaScript.
-Express.js: Marco de aplicación web para Node.js.
-MySQL: Sistema de gestión de bases de datos relacional.
-bcrypt: Biblioteca para el hash seguro de contraseñas.
-JSON Web Tokens (JWT): Método compacto y seguro para la transmisión de información entre partes como un objeto JSON.
-Instalación
-Clona este repositorio en tu máquina local:
+## Funcionalidades
 
-bash
-Copy code
-git clone https://github.com/tuusuario/servicio-autenticacion.git
-Instala las dependencias utilizando npm:
+- Registro de usuarios con nombre de usuario y contraseña.
+- Inicio de sesión seguro utilizando JWT (JSON Web Tokens).
+- Asignación de roles a los usuarios.
+- Definición de permisos asociados a roles.
+- Verificación de permisos antes de permitir el acceso a recursos protegidos.
 
-bash
-Copy code
-cd servicio-autenticacion
-npm install
-Configura la base de datos MySQL y actualiza la configuración de conexión en config/db.js.
+## Tecnologías Utilizadas
 
-Ejecuta el servidor:
+- Node.js: Plataforma de tiempo de ejecución de JavaScript.
+- Express.js: Marco de aplicación web para Node.js.
+- MySQL: Sistema de gestión de bases de datos relacional.
+- bcrypt: Biblioteca para el hash seguro de contraseñas.
+- JSON Web Tokens (JWT): Método compacto y seguro para la transmisión de información entre partes como un objeto JSON.
 
-sql
-Copy code
-npm start
+## Instalación
 
-Aquí tienes los pasos detallados para montar este microservicio en un README en GitHub:
+1. Clona este repositorio en tu máquina local:
+
+    ```
+    git clone https://github.com/tuusuario/servicio-autenticacion.git
+    ```
+
+2. Instala las dependencias utilizando npm:
+
+    ```
+    cd servicio-autenticacion
+    npm install
+    ```
+
+3. Configura la base de datos MySQL y actualiza la configuración de conexión en `config/db.js`.
+
+4. Ejecuta el servidor:
+
+    ```
+    npm start
+    ```
+## Uso de las Rutas
+
+### Inicio de Sesión
+Utiliza la ruta `/api/login` para iniciar sesión. Envía una solicitud POST con el nombre de usuario y la contraseña en el cuerpo de la solicitud.
+
+POST /api/login
+
+Cuerpo de la solicitud:
+{
+    "username": "ejemplo",
+    "password": "contraseña"
+}
+
+POST /api/register
+
+Cuerpo de la solicitud:
+{
+    "username": "nuevoUsuario",
+    "password": "contraseña"
+}
+
+## Uso del Microservicio
+
+### Operaciones de Usuario
+- GET /api/users/:id
+- PUT /api/users/:id
+- DELETE /api/users/:id
+- GET /api/users
+- GET /api/userName/:username
+- PUT /api/userRole/:id
+### Operaciones de Rol
+- POST /api/roles
+- GET /api/roles/:id
+- GET /api/roles
+- PUT /api/roles/:id
+- DELETE /api/roles/:id
+### Operaciones de Permiso
+- POST /api/permissions
+- GET /api/permissions/:id
+- GET /api/permissions
+- PUT /api/permissions/:id
+- DELETE /api/permissions/:id
 
 ### Instrucciones para Montar el Microservicio-Libros
 
