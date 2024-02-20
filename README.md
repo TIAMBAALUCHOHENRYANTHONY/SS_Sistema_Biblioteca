@@ -2,7 +2,7 @@
 
 Este servicio proporciona funcionalidades de autenticación para usuarios, con la capacidad de asignar roles y permisos, así como realizar operaciones de registro e inicio de sesión.
 
-## Funcionalidades
+#### Funcionalidades
 
 - Registro de usuarios con nombre de usuario y contraseña.
 - Inicio de sesión seguro utilizando JWT (JSON Web Tokens).
@@ -10,7 +10,7 @@ Este servicio proporciona funcionalidades de autenticación para usuarios, con l
 - Definición de permisos asociados a roles.
 - Verificación de permisos antes de permitir el acceso a recursos protegidos.
 
-## Tecnologías Utilizadas
+#### Tecnologías Utilizadas
 
 - Node.js: Plataforma de tiempo de ejecución de JavaScript.
 - Express.js: Marco de aplicación web para Node.js.
@@ -18,7 +18,7 @@ Este servicio proporciona funcionalidades de autenticación para usuarios, con l
 - bcrypt: Biblioteca para el hash seguro de contraseñas.
 - JSON Web Tokens (JWT): Método compacto y seguro para la transmisión de información entre partes como un objeto JSON.
 
-## Instalación
+#### Instalación
 
 1. Clona este repositorio en tu máquina local:
 
@@ -40,9 +40,9 @@ Este servicio proporciona funcionalidades de autenticación para usuarios, con l
     ```
     npm start
     ```
-## Uso de las Rutas
+#### Uso de las Rutas
 
-### Inicio de Sesión
+#### Inicio de Sesión
 Utiliza la ruta `/api/login` para iniciar sesión. Envía una solicitud POST con el nombre de usuario y la contraseña en el cuerpo de la solicitud.
 
 POST /api/login
@@ -61,29 +61,29 @@ Cuerpo de la solicitud:
     "password": "contraseña"
 }
 
-## Uso del Microservicio
+#### Uso del Microservicio
 
-### Operaciones de Usuario
+#### Operaciones de Usuario
 - GET /api/users/:id
 - PUT /api/users/:id
 - DELETE /api/users/:id
 - GET /api/users
 - GET /api/userName/:username
 - PUT /api/userRole/:id
-### Operaciones de Rol
+#### Operaciones de Rol
 - POST /api/roles
 - GET /api/roles/:id
 - GET /api/roles
 - PUT /api/roles/:id
 - DELETE /api/roles/:id
-### Operaciones de Permiso
+#### Operaciones de Permiso
 - POST /api/permissions
 - GET /api/permissions/:id
 - GET /api/permissions
 - PUT /api/permissions/:id
 - DELETE /api/permissions/:id
 
-### Instrucciones para Montar el Microservicio-Libros
+# Instrucciones para Montar el Microservicio-Libros
 
 #### Requisitos Previos
 - Python 3.x instalado en tu sistema.
