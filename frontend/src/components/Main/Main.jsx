@@ -52,15 +52,16 @@ const Main = () => {
     try {
       const user = await getUserByName(username);
       setUser(user);
-      const rol = await getRoleById(user.role_id);
-      const permissionsIds = rol.permissions;
-      const permissionsWithName = [];
-
-      for (const permissionId of permissionsIds) {
-        const permission = await getPermissionById(permissionId);
-        permissionsWithName.push(permission.name);
+      if (user.role_id) {
+        const rol = await getRoleById(user.role_id);
+        const permissionsIds = rol.permissions;
+        const permissionsWithName = [];
+        for (const permissionId of permissionsIds) {
+          const permission = await getPermissionById(permissionId);
+          permissionsWithName.push(permission.name);
+        }
+        setPermissions(permissionsWithName);
       }
-      setPermissions(permissionsWithName);
     } catch (error) {
       console.error('Error fetching user:', error);
     }
