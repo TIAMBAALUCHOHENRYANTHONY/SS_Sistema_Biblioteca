@@ -128,3 +128,27 @@ dist
 .yarn/build-state.yml
 .yarn/install-state.gz
 .pnp.*
+
+# Archivos de Byte de Python
+__pycache__/
+
+# Entornos virtuales
+venv/
+env/
+
+# Archivos de registro y caché
+*.log
+*.pot
+*.pyc
+*.pyo
+*.sw[po]
+
+# Carpeta de construcción
+build/
+dist/
+
+# Archivo de configuración local
+.env
+
+# Dependencias instaladas
+/.venv/
