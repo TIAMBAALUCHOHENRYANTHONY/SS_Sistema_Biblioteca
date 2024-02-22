@@ -1,0 +1,12 @@
+# Información del proyecto
+sonar.projectKey=bibliotecadb-fastapi
+sonar.projectName=BibliotecaDB FastAPI
+sonar.projectVersion=1.0
+
+# Fuentes y lenguajes
+sonar.sources=.
+sonar.language=py
+sonar.sourceEncoding=UTF-8
+
+# Exclusiones
+sonar.exclusions=**/*.py
