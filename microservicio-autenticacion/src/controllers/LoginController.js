@@ -45,35 +45,21 @@ module.exports.register = (req, res) => {
 module.exports.login = (req, res) => {
     const { username, password } = req.body;
 
-    if (failedLoginAttempts[username] && failedLoginAttempts[username].attempts >= MAX_LOGIN_ATTEMPTS) {
-        const lastAttemptTime = failedLoginAttempts[username].lastAttempt;
-        const currentTime = new Date().getTime();
-
-        // Verificar si la cuenta está bloqueada temporalmente
-        if (currentTime - lastAttemptTime < LOCKOUT_PERIOD) {
-            return res.status(403).json({ message: 'Account locked. Try again later.' });
-        } else {
-            // Reiniciar el contador de intentos de inicio de sesión fallidos si el bloqueo ha expirado
-            failedLoginAttempts[username].attempts = 0;
-        }
+    if (isAccountLocked(username)) {
+        return res.status(403).json({ message: 'Account locked. Try again later.' });
     }
 
-    const consult = 'SELECT * FROM users WHERE username = ?';
-
     try {
-        connection.query(consult, [username], (err, result) => {
+        getUserByUsername(username, (err, user) => {
             if (err) {
                 return res.status(500).json({ message: 'Error retrieving user' });
             }
 
-            if (result.length === 0) {
+            if (!user) {
                 return res.status(401).json({ message: 'User not found' });
             }
 
-            const user = result[0];
-            const storedHash = user.password_hash;
-
-            bcrypt.compare(password, storedHash, (err, isValid) => {
+            bcrypt.compare(password, user.password_hash, (err, isValid) => {
                 if (err) {
                     return res.status(500).json({ message: 'Error comparing passwords' });
                 }
@@ -87,10 +73,7 @@ module.exports.login = (req, res) => {
                     expiresIn: '15m'
                 });
 
-                // Restablecer los intentos de inicio de sesión fallidos después de un inicio de sesión exitoso
-                if (failedLoginAttempts[username]) {
-                    failedLoginAttempts[username].attempts = 0;
-                }
+                resetFailedLoginAttempts(username);
 
                 res.status(200).json({ token });
             });
@@ -101,6 +84,26 @@ module.exports.login = (req, res) => {
     }
 }
 
+function isAccountLocked(username) {
+    return failedLoginAttempts[username] && failedLoginAttempts[username].attempts >= MAX_LOGIN_ATTEMPTS &&
+        (new Date().getTime() - failedLoginAttempts[username].lastAttempt < LOCKOUT_PERIOD);
+}
+
+function getUserByUsername(username, callback) {
+    const consult = 'SELECT * FROM users WHERE username = ?';
+    connection.query(consult, [username], (err, result) => {
+        if (err) {
+            return callback(err);
+        }
+        return callback(null, result.length > 0 ? result[0] : null);
+    });
+}
+
+function resetFailedLoginAttempts(username) {
+    if (failedLoginAttempts[username]) {
+        failedLoginAttempts[username].attempts = 0;
+    }
+}
 
 function recordFailedLoginAttempt(username) {
     if (failedLoginAttempts[username]) {
