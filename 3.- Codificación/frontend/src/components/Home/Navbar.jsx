@@ -29,10 +29,13 @@ const Navbar = (props) => {
                 <div className="collapse navbar-collapse justify-content-center" id="navbarNav"> {/* Agregamos la clase justify-content-center */}
                     <ul className="navbar-nav">
                         <li className="nav-item">
-                            <Link className="nav-link" to="/home">Inicio</Link>
+                            <Link className="nav-link" to="/libros">Libros</Link>
                         </li>
                         {isAdmin && (
                             <>
+                                <li className="nav-item">
+                                    <Link className="nav-link" to="/prestamos">Prestamos</Link>
+                                </li>
                                 <li className="nav-item">
                                     <Link className="nav-link" to="/permissions">Permisos</Link>
                                 </li>

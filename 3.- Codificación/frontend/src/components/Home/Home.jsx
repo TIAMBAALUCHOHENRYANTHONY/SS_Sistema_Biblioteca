@@ -1,3 +1,4 @@
+import LibroTable from "../Libros/Libros";
 import Navbar from "./Navbar";
 
 const Home = (props) => {

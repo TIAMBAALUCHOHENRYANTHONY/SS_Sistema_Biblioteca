@@ -11,6 +11,10 @@ import UserTable from "../Users/User.jsx";
 import UserModal from "../Users/UserModal.jsx";
 import { getPermissionById, getRoleById, getUserByName } from "../../api/UserRolePermissions.js";
 import Inicio from "../Inicio/Inicio.jsx";
+import LibroModal from "../Libros/LibrosModal.jsx";
+import PeticionModal from "../Peticiones/ModalPeticiones.jsx";
+import PeticionTable from "../Peticiones/Peticiones.jsx";
+import LibroTable from "../Libros/Libros.jsx";
 
 function parseJwt(token) {
   if (!token) {
@@ -82,6 +86,39 @@ const Main = () => {
     <Router>
       <Routes>
         <Route path="/" element={<Inicio />} />
+        <Route
+          path="/editLibro/:id?"
+          element={
+            hasPermission(['administrador']) ? (
+              isLoggedIn ? <LibroModal /> : <Login />
+            ) : (
+              <Navigate to="/home" />
+            )
+          }
+        />
+        <Route path="/libros" element={isLoggedIn ? <LibroTable permissions={permissions} /> : <Login />} />
+        <Route
+          path="/modalPrestamo/:id?"
+          element={
+            isLoggedIn ? (
+              <PeticionModal permissions={permissions} />
+            ) : (
+              <Login />
+            )
+          }
+        />
+
+        {/* Ruta para la tabla de prestamos */}
+        <Route
+          path="/prestamos"
+          element={
+            isLoggedIn ? (
+              <PeticionTable permissions={permissions} />
+            ) : (
+              <Login />
+            )
+          }
+        />
         <Route
           path="/login"
           element={isLoggedIn ? <Home permissions={permissions} /> : <Login />}

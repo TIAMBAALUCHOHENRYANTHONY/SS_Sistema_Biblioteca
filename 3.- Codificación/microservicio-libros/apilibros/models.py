@@ -10,7 +10,6 @@ class Libro(BaseModel):
     estado: str
 
 class Prestamo(BaseModel):
-    estudiante_id: int
     libro_id: int
     fecha_prestamo: str
     fecha_devolucion: Optional[str] = None
