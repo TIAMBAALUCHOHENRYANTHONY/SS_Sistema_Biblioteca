@@ -43,7 +43,7 @@ const RoleTable = (props) => {
             <Navbar permissions={permissions} />
             <div className="container">
                 <h2>Roles del Sistema</h2>
-                <button className="btn btn-primary mb-3" onClick={handleAddRol} >Añadir Rol</button>
+                <button className="btn btn-success mb-3" onClick={handleAddRol} >Añadir Rol</button>
                 {message && (
                     <div className={`alert ${message.startsWith('Error') ? 'alert-danger' : 'alert-success'}`} role="alert">
                         {message}
@@ -53,9 +53,9 @@ const RoleTable = (props) => {
                 <table className="table">
                     <thead>
                         <tr>
-                            <th>Nombre</th>
-                            <th>Descripción</th>
-                            <th>Acciones</th>
+                            <th className="bg-success text-white">Nombre</th>
+                            <th className="bg-success text-white">Descripción</th>
+                            <th className="bg-success text-white">Acciones</th>
                         </tr>
                     </thead>
                     <tbody>

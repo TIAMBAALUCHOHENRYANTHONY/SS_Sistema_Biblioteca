@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 import { login } from "../../api/Autentication";
 import { Link, useLocation } from 'react-router-dom';
+import Logo from '../Inicio/Inicio.png';
+import LogoEspe from './logo_espe.jpg';
 
 const Login = () => {
 
@@ -14,7 +16,7 @@ const Login = () => {
         const params = new URLSearchParams(location.search);
         if (params.get('registrationSuccess') === 'true') {
             setRegistrationSuccess(true);
-        }else {
+        } else {
             setRegistrationSuccess(false);
         }
     }, [location]);
@@ -37,33 +39,45 @@ const Login = () => {
     };
 
     return (
-        <div className="container mt-5">
-            <div className="row justify-content-center">
-                <div className="col-md-6">
-                    <div className="card">
-                        <div className="card-body">
-                            <h5 className="card-title text-center">Login</h5>
-                            <form>
-                                <div className="mb-3">
-                                    <label htmlFor="username" className="form-label">Usuario:</label>
-                                    <input onChange={(event) => { setUsername(event.target.value) }} type="text" placeholder="Usuario" className="form-control" id="username" />
+        <div className="background-image" style={{ backgroundImage: `url(${Logo})`, backgroundSize: 'cover', minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0', padding: '20px', borderRadius: '10px', border: '2px solid rgba(0, 128, 0, 0.3)' }}>
+            <div className="container mt-5">
+                <div className="row justify-content-center">
+                    <div className="col-md-6">
+                        <div className="card" style={{ margin: '10vh auto', padding: '20px', borderRadius: '10px', border: '10px solid rgba(0, 128, 0, 0.3)' }}>
+                            <div className="card-body">
+                                <div className="row">
+                                    <div className="col-md-6 d-flex align-items-center justify-content-center">
+                                        {/* Contenido de la columna izquierda (imagen) */}
+                                        <img src={LogoEspe} alt="Logo" style={{ maxWidth: '100%', height: 'auto' }} />
+                                    </div>
+                                    <div className="col-md-6">
+                                        {/* Contenido de la columna derecha (inputs y botón) */}
+                                        <h5 className="card-title text-center fw-bold">Bienvenido !! </h5>
+                                        <form>
+                                            <div className="mb-3">
+                                                <label htmlFor="username" className="form-label fw-bold">Usuario:</label>
+                                                <input onChange={(event) => { setUsername(event.target.value) }} type="text" placeholder="Ingrese su Usuario" className="form-control" id="username" />
+                                            </div>
+                                            <div className="mb-3">
+                                                <label htmlFor="password" className="form-label fw-bold">Contraseña:</label>
+                                                <input onChange={(event) => { setPassword(event.target.value) }} type="password" placeholder="Ingrese su Contraseña" className="form-control" id="password" />
+                                            </div>
+                                            {error && <div className="alert alert-danger">{error}</div>}
+                                            <button onClick={handdleLogin} className="btn btn-success w-100 fw-bold">Iniciar Sesión</button>
+                                        </form>
+                                        <div className="text-center mt-3">
+                                            <p>¿No tienes una cuenta? <Link to="/register">Regístrate aquí</Link></p>
+                                        </div>
+                                        {registrationSuccess && (
+                                            <div className="alert alert-success" role="alert">
+                                                Registro exitoso. Ahora puedes iniciar sesión.
+                                            </div>
+                                        )}
+                                    </div>
                                 </div>
-                                <div className="mb-3">
-                                    <label htmlFor="password" className="form-label">Contraseña:</label>
-                                    <input onChange={(event) => { setPassword(event.target.value) }} type="password" placeholder="Contraseña" className="form-control" id="password" />
-                                </div>
-                                {error && <div className="alert alert-danger">{error}</div>}
-                                <button onClick={handdleLogin} className="btn btn-primary">Login</button>
-                            </form>
-                            <div className="text-center mt-3">
-                                <p>¿No tienes una cuenta? <Link to="/register">Regístrate aquí</Link></p>
                             </div>
-                            {registrationSuccess && (
-                                <div className="alert alert-success" role="alert">
-                                    Registro exitoso. Ahora puedes iniciar sesión.
-                                </div>
-                            )}
                         </div>
+
                     </div>
                 </div>
             </div>

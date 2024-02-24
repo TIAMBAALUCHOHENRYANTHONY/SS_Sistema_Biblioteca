@@ -52,33 +52,40 @@ const PeticionModal = () => {
     };
 
     return (
-        <div className="card">
-            <div className="card-header">
-                <h5 className="card-title">Datos de la Petición</h5>
-            </div>
-            <div className="card-body">
-                <form onSubmit={handleSubmit}>
-                    <div className="mb-3">
-                        <label htmlFor="libroId" className="form-label">ID del Libro:</label>
-                        <input type="text" className="form-control" id="libroId" value={libroId} onChange={(e) => setLibroId(e.target.value)} />
+        <div className="container mt-5">
+            <div className="row justify-content-center">
+                <div className="col-md-6">
+                    <div className="card" style={{ margin: '10vh auto', padding: '20px', borderRadius: '10px', border: '10px solid rgba(0, 128, 0, 0.3)' }}>
+                        <div className="card-header">
+                            <h5 className="card-title fw-bold">Datos de la Petición</h5>
+                        </div>
+                        <div className="card-body">
+                            <form onSubmit={handleSubmit}>
+                                <div className="mb-3">
+                                    <label htmlFor="libroId" className="form-label fw-bold">ID del Libro:</label>
+                                    <input type="text" className="form-control" id="libroId" value={libroId} onChange={(e) => setLibroId(e.target.value)} />
+                                </div>
+                                <div className="mb-3">
+                                    <label htmlFor="fechaPrestamo" className="form-label fw-bold">Fecha de Préstamo:</label>
+                                    <input type="date" className="form-control" id="fechaPrestamo" value={fechaPrestamo} onChange={(e) => setFechaPrestamo(e.target.value)} />
+                                </div>
+                                <div className="mb-3">
+                                    <label htmlFor="fechaDevolucion" className="form-label fw-bold">Fecha de Devolución:</label>
+                                    <input type="date" className="form-control" id="fechaDevolucion" value={fechaDevolucion} onChange={(e) => setFechaDevolucion(e.target.value)} />
+                                </div>
+                                <button type="submit" className="btn btn-success fw-bold">Guardar</button>
+                            </form>
+                        </div>
+                        {message && (
+                            <div className={`alert ${message.startsWith('Error') ? 'alert-danger' : 'alert-success'}`} role="alert">
+                                {message}
+                            </div>
+                        )}
                     </div>
-                    <div className="mb-3">
-                        <label htmlFor="fechaPrestamo" className="form-label">Fecha de Préstamo:</label>
-                        <input type="date" className="form-control" id="fechaPrestamo" value={fechaPrestamo} onChange={(e) => setFechaPrestamo(e.target.value)} />
-                    </div>
-                    <div className="mb-3">
-                        <label htmlFor="fechaDevolucion" className="form-label">Fecha de Devolución:</label>
-                        <input type="date" className="form-control" id="fechaDevolucion" value={fechaDevolucion} onChange={(e) => setFechaDevolucion(e.target.value)} />
-                    </div>
-                    <button type="submit" className="btn btn-primary">Guardar</button>
-                </form>
-            </div>
-            {message && (
-                <div className={`alert ${message.startsWith('Error') ? 'alert-danger' : 'alert-success'}`} role="alert">
-                    {message}
                 </div>
-            )}
+            </div>
         </div>
+
     );
 };
 

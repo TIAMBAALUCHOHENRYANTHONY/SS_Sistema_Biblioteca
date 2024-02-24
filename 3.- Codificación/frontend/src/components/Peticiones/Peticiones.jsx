@@ -81,10 +81,10 @@ const PeticionTable = (props) => {
                     <table className="table">
                         <thead>
                             <tr>
-                                <th>Libro Id</th>
-                                <th>Fecha Apertura</th>
-                                <th>Fecha Devolucion</th>
-                                <th>Acciones</th>
+                                <th className="bg-success text-white">Libro Id</th>
+                                <th className="bg-success text-white">Fecha Apertura</th>
+                                <th className="bg-success text-white">Fecha Devolucion</th>
+                                <th className="bg-success text-white">Acciones</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -121,12 +121,13 @@ const PeticionTable = (props) => {
                     <table className="table">
                         <thead>
                             <tr>
-                                <th>Título</th>
-                                <th>ISBN</th>
-                                <th>Año de publicación</th>
-                                <th>Editorial</th>
-                                <th>Autor</th>
-                                <th>Estado</th>
+                                <th className="bg-success text-white">Título</th>
+                                <th className="bg-success text-white">ISBN</th>
+                                <th className="bg-success text-white">Año de publicación</th>
+                                <th className="bg-success text-white">Editorial</th>
+                                <th className="bg-success text-white">Autor</th>
+                                <th className="bg-success text-white">Estado</th>
+                                <th className="bg-success text-white">Acciones</th>
                             </tr>
                         </thead>
                         <tbody>

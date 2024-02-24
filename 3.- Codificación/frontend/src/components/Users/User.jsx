@@ -65,9 +65,9 @@ const UserTable = (props) => {
                 <table className="table">
                     <thead>
                         <tr>
-                            <th>Usuario</th>
-                            <th>Rol</th>
-                            <th>Acciones</th>
+                            <th className="bg-success text-white">Usuario</th>
+                            <th className="bg-success text-white">Rol</th>
+                            <th className="bg-success text-white">Acciones</th>
                         </tr>
                     </thead>
                     <tbody>

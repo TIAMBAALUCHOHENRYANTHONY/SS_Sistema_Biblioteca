@@ -116,47 +116,54 @@ const RoleModal = () => {
 
 
     return (
-        <div className="card">
-            <div className="card-header">
-                <h5 className="card-title">Datos del Rol</h5>
-            </div>
-            <div className="card-body">
-                <form onSubmit={handleSubmit}>
-                    <div className="mb-3">
-                        <label htmlFor="name" className="form-label">Nombre:</label>
-                        <input type="text" className="form-control" id="name" autoComplete="username" value={name} onChange={(e) => setName(e.target.value)} />
-                    </div>
-                    <div className="mb-3">
-                        <label htmlFor="description" className="form-label">Descripción:</label>
-                        <textarea className="form-control" id="description" autoComplete="description" value={description} onChange={(e) => setDescription(e.target.value)} />
-                    </div>
-                    <div className="mb-3">
-                        {allPermissions.map(permission => {
-                            return (
-                                <div className="form-check" key={permission.id}>
-                                    <input
-                                        className="form-check-input"
-                                        type="checkbox"
-                                        id={`permission_${permission.id}`}
-                                        value={permission.id}
-                                        onChange={(e) => handlePermissionCheckbox(e)}
-                                    />
-                                    <label className="form-check-label" htmlFor={`permission_${permission.id}`}>
-                                        {permission.name}
-                                    </label>
+        <div className="container mt-5">
+            <div className="row justify-content-center">
+                <div className="col-md-6">
+                    <div className="card" style={{ margin: '10vh auto', padding: '20px', borderRadius: '10px', border: '10px solid rgba(0, 128, 0, 0.3)' }}>
+                        <div className="card-header">
+                            <h5 className="card-title fw-bold">Datos del Rol</h5>
+                        </div>
+                        <div className="card-body">
+                            <form onSubmit={handleSubmit}>
+                                <div className="mb-3">
+                                    <label htmlFor="name" className="form-label fw-bold">Nombre:</label>
+                                    <input type="text" className="form-control" id="name" autoComplete="username" value={name} onChange={(e) => setName(e.target.value)} />
                                 </div>
-                            );
-                        })}
+                                <div className="mb-3">
+                                    <label htmlFor="description" className="form-label fw-bold">Descripción:</label>
+                                    <textarea className="form-control" id="description" autoComplete="description" value={description} onChange={(e) => setDescription(e.target.value)} />
+                                </div>
+                                <div className="mb-3">
+                                    {allPermissions.map(permission => {
+                                        return (
+                                            <div className="form-check" key={permission.id}>
+                                                <input
+                                                    className="form-check-input"
+                                                    type="checkbox"
+                                                    id={`permission_${permission.id}`}
+                                                    value={permission.id}
+                                                    onChange={(e) => handlePermissionCheckbox(e)}
+                                                />
+                                                <label className="form-check-label fw-bold" htmlFor={`permission_${permission.id}`}>
+                                                    {permission.name}
+                                                </label>
+                                            </div>
+                                        );
+                                    })}
+                                </div>
+                                <button type="submit" className="btn btn-success fw-bold">Guardar</button>
+                            </form>
+                        </div>
+                        {message && (
+                            <div className={`alert ${message.startsWith('Error') ? 'alert-danger' : 'alert-success'}`} role="alert">
+                                {message}
+                            </div>
+                        )}
                     </div>
-                    <button type="submit" className="btn btn-primary">Guardar</button>
-                </form>
-            </div>
-            {message && (
-                <div className={`alert ${message.startsWith('Error') ? 'alert-danger' : 'alert-success'}`} role="alert">
-                    {message}
                 </div>
-            )}
+            </div>
         </div>
+
     );
 };
 

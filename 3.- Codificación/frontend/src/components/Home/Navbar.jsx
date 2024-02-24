@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import Logo from './logo_principal.png';
 
 const Navbar = (props) => {
 
@@ -20,40 +21,43 @@ const Navbar = (props) => {
         window.location.href = '/login';
     };
     return (
-        <nav className="navbar navbar-expand-lg navbar-light bg-light">
+        <nav className="navbar navbar-expand-lg navbar-light bg-success" >
             <div className="container-fluid">
-                <Link className="navbar-brand" to="/">Your Logo</Link>
+                <Link className="navbar-brand" to="/home">
+                    <img src={Logo} alt="Logo" style={{ maxHeight: '40px', marginRight: '10px' }} />
+                </Link>
                 <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span className="navbar-toggler-icon"></span>
                 </button>
-                <div className="collapse navbar-collapse justify-content-center" id="navbarNav"> {/* Agregamos la clase justify-content-center */}
+                <div className="collapse navbar-collapse justify-content-center" id="navbarNav">
                     <ul className="navbar-nav">
                         <li className="nav-item">
-                            <Link className="nav-link" to="/libros">Libros</Link>
+                            <Link className="nav-link fw-bold" to="/libros" style={{ color: 'white' }}>Libros</Link>
                         </li>
                         {isAdmin && (
                             <>
                                 <li className="nav-item">
-                                    <Link className="nav-link" to="/prestamos">Prestamos</Link>
+                                    <Link className="nav-link fw-bold" to="/prestamos" style={{ color: 'white' }}>Prestamos</Link>
                                 </li>
                                 <li className="nav-item">
-                                    <Link className="nav-link" to="/permissions">Permisos</Link>
+                                    <Link className="nav-link fw-bold" to="/permissions" style={{ color: 'white' }}>Permisos</Link>
                                 </li>
                                 <li className="nav-item">
-                                    <Link className="nav-link" to="/roles">Roles</Link>
+                                    <Link className="nav-link fw-bold" to="/roles" style={{ color: 'white' }}>Roles</Link>
                                 </li>
                                 <li className="nav-item">
-                                    <Link className="nav-link" to="/users">Usuarios</Link>
+                                    <Link className="nav-link fw-bold" to="/users" style={{ color: 'white' }}>Usuarios</Link>
                                 </li>
                             </>
                         )}
                         <li className="nav-item">
-                            <button className="nav-link btn btn-link" onClick={handleLogout}>Cerrar sesión</button>
+                            <button className="nav-link btn btn-link fw-bold" onClick={handleLogout} style={{ color: 'white' }}>Cerrar sesión</button>
                         </li>
                     </ul>
                 </div>
             </div>
         </nav>
+
     );
 };
 

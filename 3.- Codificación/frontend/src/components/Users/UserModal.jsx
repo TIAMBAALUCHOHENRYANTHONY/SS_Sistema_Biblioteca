@@ -60,34 +60,41 @@ const UserModal = () => {
 
 
     return (
-        <div className="card">
-            <div className="card-header">
-                <h5 className="card-title">Datos del Usuario</h5>
-            </div>
-            <div className="card-body">
-                <form onSubmit={handleSubmit}>
-                    <div className="mb-3">
-                        <label htmlFor="name" className="form-label">Nombre:</label>
-                        <input type="text" className="form-control" id="name" autoComplete="username" value={name} onChange={(e) => setName(e.target.value)} />
+        <div className="container mt-5">
+            <div className="row justify-content-center">
+                <div className="col-md-6">
+                    <div className="card" style={{ margin: '10vh auto', padding: '20px', borderRadius: '10px', border: '10px solid rgba(0, 128, 0, 0.3)' }}>
+                        <div className="card-header">
+                            <h5 className="card-title fw-bold">Datos del Usuario</h5>
+                        </div>
+                        <div className="card-body">
+                            <form onSubmit={handleSubmit}>
+                                <div className="mb-3">
+                                    <label htmlFor="name" className="form-label fw-bold">Nombre:</label>
+                                    <input type="text" className="form-control" id="name" autoComplete="username" value={name} onChange={(e) => setName(e.target.value)} />
+                                </div>
+                                <div className="mb-3">
+                                    <label htmlFor="role" className="form-label fw-bold">Rol:</label>
+                                    <select className="form-select" id="role" value={rol_id} onChange={(e) => setRolId(e.target.value)}>
+                                        <option value="">Selecciona un rol</option>
+                                        {roles.map(role => (
+                                            <option key={role.id} value={role.id}>{role.name}</option>
+                                        ))}
+                                    </select>
+                                </div>
+                                <button type="submit" className="btn btn-success fw-bold">Guardar</button>
+                            </form>
+                        </div>
+                        {message && (
+                            <div className={`alert ${message.startsWith('Error') ? 'alert-danger' : 'alert-success'}`} role="alert">
+                                {message}
+                            </div>
+                        )}
                     </div>
-                    <div className="mb-3">
-                        <label htmlFor="role" className="form-label">Rol:</label>
-                        <select className="form-select" id="role" value={rol_id} onChange={(e) => setRolId(e.target.value)}>
-                            <option value="">Selecciona un rol</option>
-                            {roles.map(role => (
-                                <option key={role.id} value={role.id}>{role.name}</option>
-                            ))}
-                        </select>
-                    </div>
-                    <button type="submit" className="btn btn-primary">Guardar</button>
-                </form>
-            </div>
-            {message && (
-                <div className={`alert ${message.startsWith('Error') ? 'alert-danger' : 'alert-success'}`} role="alert">
-                    {message}
                 </div>
-            )}
+            </div>
         </div>
+
     );
 };
 

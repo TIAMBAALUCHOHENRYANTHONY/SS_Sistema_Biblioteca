@@ -89,11 +89,9 @@ const Main = () => {
         <Route
           path="/editLibro/:id?"
           element={
-            hasPermission(['administrador']) ? (
+            
               isLoggedIn ? <LibroModal /> : <Login />
-            ) : (
-              <Navigate to="/home" />
-            )
+            
           }
         />
         <Route path="/libros" element={isLoggedIn ? <LibroTable permissions={permissions} /> : <Login />} />
@@ -137,7 +135,7 @@ const Main = () => {
         />
         <Route
           path="/modalPermission/:id?"
-          element={hasPermission(['administrador']) ? (isLoggedIn ? <PermissionModal /> : <Login />) : <Navigate to="/home" />}
+          element={isLoggedIn ? <PermissionModal /> : <Login />}
         />
         <Route
           path="/roles"
@@ -145,7 +143,7 @@ const Main = () => {
         />
         <Route
           path="/modalRole/:id?"
-          element={hasPermission(['administrador']) ? (isLoggedIn ? <RoleModal /> : <Login />) : <Navigate to="/home" />}
+          element={isLoggedIn ? <RoleModal /> : <Login />}
         />
         <Route
           path="/users"
@@ -153,7 +151,7 @@ const Main = () => {
         />
         <Route
           path="/modalUser/:id?"
-          element={hasPermission(['administrador']) ? (isLoggedIn ? <UserModal /> : <Login />) : <Navigate to="/home" />}
+          element={isLoggedIn ? <UserModal /> : <Login />}
         />
       </Routes>
     </Router>

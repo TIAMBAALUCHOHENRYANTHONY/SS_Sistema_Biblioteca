@@ -78,12 +78,12 @@ const LibroModal = () => {
                 // Redirige a la nueva URL
                 window.location.href = url.toString();
             } else {
-               // Construye la URL con el mensaje como parámetro de búsqueda
-               const url = new URL('/libros', window.location.origin);
-               url.searchParams.append('message', 'Error al crear el libro');
+                // Construye la URL con el mensaje como parámetro de búsqueda
+                const url = new URL('/libros', window.location.origin);
+                url.searchParams.append('message', 'Error al crear el libro');
 
-               // Redirige a la nueva URL
-               window.location.href = url.toString();
+                // Redirige a la nueva URL
+                window.location.href = url.toString();
             }
         } catch (error) {
             console.error('Error en la solicitud:', error);
@@ -92,45 +92,52 @@ const LibroModal = () => {
     };
 
     return (
-        <div className="card">
-            <div className="card-header">
-                <h5 className="card-title">Datos del Libro</h5>
-            </div>
-            <div className="card-body">
-                <form onSubmit={handleSubmit}>
-                    <div className="mb-3">
-                        <label htmlFor="titulo" className="form-label">Título:</label>
-                        <input type="text" className="form-control" id="titulo" value={titulo} onChange={(e) => setTitulo(e.target.value)} />
+        <div className="container mt-5">
+            <div className="row justify-content-center">
+                <div className="col-md-6">
+                    <div className="card" style={{ margin: '10vh auto', padding: '20px', borderRadius: '10px', border: '10px solid rgba(0, 128, 0, 0.3)' }}>
+                        <div className="card-header">
+                            <h5 className="card-title">Datos del Libro</h5>
+                        </div>
+                        <div className="card-body">
+                            <form onSubmit={handleSubmit}>
+                                <div className="mb-3">
+                                    <label htmlFor="titulo" className="form-label">Título:</label>
+                                    <input type="text" className="form-control" id="titulo" value={titulo} onChange={(e) => setTitulo(e.target.value)} />
+                                </div>
+                                <div className="mb-3">
+                                    <label htmlFor="ISBN" className="form-label">ISBN:</label>
+                                    <input type="text" className="form-control" id="ISBN" value={ISBN} onChange={(e) => setISBN(e.target.value)} />
+                                </div>
+                                <div className="mb-3">
+                                    <label htmlFor="añoPublicacion" className="form-label">Año de publicación:</label>
+                                    <input type="text" className="form-control" id="añoPublicacion" value={añoPublicacion} onChange={(e) => setAñoPublicacion(e.target.value)} />
+                                </div>
+                                <div className="mb-3">
+                                    <label htmlFor="editorial" className="form-label">Editorial:</label>
+                                    <input type="text" className="form-control" id="editorial" value={editorial} onChange={(e) => setEditorial(e.target.value)} />
+                                </div>
+                                <div className="mb-3">
+                                    <label htmlFor="autor" className="form-label">Autor:</label>
+                                    <input type="text" className="form-control" id="autor" value={autor} onChange={(e) => setAutor(e.target.value)} />
+                                </div>
+                                <div className="mb-3">
+                                    <label htmlFor="estado" className="form-label">Estado:</label>
+                                    <input type="text" className="form-control" id="estado" value={estado} onChange={(e) => setEstado(e.target.value)} />
+                                </div>
+                                <button type="submit" className="btn btn-success">Añadir Libro</button>
+                            </form>
+                        </div>
+                        {message && (
+                            <div className={`alert ${message.startsWith('Error') ? 'alert-danger' : 'alert-success'}`} role="alert">
+                                {message}
+                            </div>
+                        )}
                     </div>
-                    <div className="mb-3">
-                        <label htmlFor="ISBN" className="form-label">ISBN:</label>
-                        <input type="text" className="form-control" id="ISBN" value={ISBN} onChange={(e) => setISBN(e.target.value)} />
-                    </div>
-                    <div className="mb-3">
-                        <label htmlFor="añoPublicacion" className="form-label">Año de publicación:</label>
-                        <input type="text" className="form-control" id="añoPublicacion" value={añoPublicacion} onChange={(e) => setAñoPublicacion(e.target.value)} />
-                    </div>
-                    <div className="mb-3">
-                        <label htmlFor="editorial" className="form-label">Editorial:</label>
-                        <input type="text" className="form-control" id="editorial" value={editorial} onChange={(e) => setEditorial(e.target.value)} />
-                    </div>
-                    <div className="mb-3">
-                        <label htmlFor="autor" className="form-label">Autor:</label>
-                        <input type="text" className="form-control" id="autor" value={autor} onChange={(e) => setAutor(e.target.value)} />
-                    </div>
-                    <div className="mb-3">
-                        <label htmlFor="estado" className="form-label">Estado:</label>
-                        <input type="text" className="form-control" id="estado" value={estado} onChange={(e) => setEstado(e.target.value)} />
-                    </div>
-                    <button type="submit" className="btn btn-primary">Guardar</button>
-                </form>
-            </div>
-            {message && (
-                <div className={`alert ${message.startsWith('Error') ? 'alert-danger' : 'alert-success'}`} role="alert">
-                    {message}
                 </div>
-            )}
+            </div>
         </div>
+
     );
 };
 

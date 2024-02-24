@@ -53,9 +53,9 @@ const PermissionTable = (props) => {
                 <table className="table">
                     <thead>
                         <tr>
-                            <th>Nombre</th>
-                            <th>Descripción</th>
-                            <th>Acciones</th>
+                            <th className="bg-success text-white">Nombre</th>
+                            <th className="bg-success text-white">Descripción</th>
+                            <th className="bg-success text-white"> Acciones</th>
                         </tr>
                     </thead>
                     <tbody>
