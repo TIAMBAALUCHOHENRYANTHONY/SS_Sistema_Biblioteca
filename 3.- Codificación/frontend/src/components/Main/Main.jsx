@@ -15,6 +15,7 @@ import LibroModal from "../Libros/LibrosModal.jsx";
 import PeticionModal from "../Peticiones/ModalPeticiones.jsx";
 import PeticionTable from "../Peticiones/Peticiones.jsx";
 import LibroTable from "../Libros/Libros.jsx";
+import UserPasswordModal from "../Users/PasswordModal.jsx";
 
 function parseJwt(token) {
   if (!token) {
@@ -128,6 +129,10 @@ const Main = () => {
         <Route
           path="/register"
           element={isLoggedIn ? <Home permissions={permissions} /> : <Register />}
+        />
+        <Route
+          path="/modalPassword"
+          element={isLoggedIn ? <UserPasswordModal user={user} /> : <Login />}
         />
         <Route
           path="/permissions"

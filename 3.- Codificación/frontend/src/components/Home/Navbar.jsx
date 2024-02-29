@@ -51,6 +51,9 @@ const Navbar = (props) => {
                             </>
                         )}
                         <li className="nav-item">
+                                    <Link className="nav-link fw-bold" to="/modalPassword" style={{ color: 'white' }}>Actualizar Usuario</Link>
+                                </li>
+                        <li className="nav-item">
                             <button className="nav-link btn btn-link fw-bold" onClick={handleLogout} style={{ color: 'white' }}>Cerrar sesión</button>
                         </li>
                     </ul>
