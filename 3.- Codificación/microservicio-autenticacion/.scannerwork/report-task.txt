@@ -2,5 +2,5 @@ projectKey=MicroServicio-Auth
 serverUrl=http://localhost:9000
 serverVersion=10.4.0.87286
 dashboardUrl=http://localhost:9000/dashboard?id=MicroServicio-Auth
-ceTaskId=1ae519c6-5816-45bd-81d5-040cb1e9cce9
-ceTaskUrl=http://localhost:9000/api/ce/task?id=1ae519c6-5816-45bd-81d5-040cb1e9cce9
+ceTaskId=b8f13d84-aa6d-4ea3-816c-35c8cf61ed51
+ceTaskUrl=http://localhost:9000/api/ce/task?id=b8f13d84-aa6d-4ea3-816c-35c8cf61ed51

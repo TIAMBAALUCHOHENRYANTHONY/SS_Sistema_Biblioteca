@@ -61,14 +61,14 @@ exports.getAllUsers = (req, res) => {
 
 exports.updateUser = (req, res) => {
     const userId = req.params.id;
-    const { username, currentPassword, newPassword, roleId } = req.body;
+    const { username, currentPassword, newPassword } = req.body;
 
-    // Consulta SQL para obtener la contraseña actual y el rol actual del usuario
-    const selectQuery = 'SELECT password_hash, role_id FROM users WHERE id = ?';
+    // Consulta SQL para obtener la contraseña actual del usuario
+    const selectQuery = 'SELECT password_hash FROM users WHERE id = ?';
     connection.query(selectQuery, [userId], (err, result) => {
         if (err) {
-            console.error('Error retrieving current password and role:', err);
-            return res.status(500).json({ message: 'Error retrieving current password and role' });
+            console.error('Error retrieving current password:', err);
+            return res.status(500).json({ message: 'Error retrieving current password' });
         }
         if (result.length === 0) {
             return res.status(404).json({ message: 'User not found' });
@@ -76,7 +76,6 @@ exports.updateUser = (req, res) => {
 
         const user = result[0];
         const currentPasswordHash = user.password_hash;
-        const currentRoleId = user.role_id;
 
         // Comparar la contraseña actual proporcionada con la contraseña almacenada en la base de datos
         bcrypt.compare(currentPassword, currentPasswordHash, (err, passwordMatch) => {
@@ -95,9 +94,9 @@ exports.updateUser = (req, res) => {
                     return res.status(500).json({ message: 'Error hashing new password' });
                 }
 
-                // Consulta SQL para actualizar la información del usuario con la nueva contraseña y el nuevo rol
-                const updateQuery = 'UPDATE users SET username = ?, password_hash = ?, role_id = ? WHERE id = ?';
-                connection.query(updateQuery, [username, newHash, roleId, userId], (err, result) => {
+                // Consulta SQL para actualizar la información del usuario con la nueva contraseña
+                const updateQuery = 'UPDATE users SET username = ?, password_hash = ? WHERE id = ?';
+                connection.query(updateQuery, [username, newHash, userId], (err, result) => {
                     if (err) {
                         console.error('Error updating user:', err);
                         return res.status(500).json({ message: 'Error updating user' });
