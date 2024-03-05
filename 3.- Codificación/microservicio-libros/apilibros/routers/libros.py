@@ -2,11 +2,34 @@ from fastapi import APIRouter, HTTPException, Query
 from models import Libro
 from database import db_cursor, db_connection
 import json
+from Crypto.Cipher import AES
+
+key = b'mi_clave_secreta'
+
+import binascii
+
+def encrypt(key, data):
+    cipher = AES.new(key, AES.MODE_EAX)
+    ciphertext, tag = cipher.encrypt_and_digest(data.encode())
+
+    encrypted_data = cipher.nonce + tag + ciphertext
+    return binascii.hexlify(encrypted_data)
+
+def decrypt(key, encrypted_data):
+    encrypted_bytes = binascii.unhexlify(encrypted_data)
+    nonce = encrypted_bytes[:AES.block_size]
+    tag = encrypted_bytes[AES.block_size:AES.block_size * 2]
+    ciphertext = encrypted_bytes[AES.block_size * 2:]
+
+    cipher = AES.new(key, AES.MODE_EAX, nonce)
+    plaintext = cipher.decrypt_and_verify(ciphertext, tag)
+
+    return plaintext
+
 
 router = APIRouter()
 
 # CRUD de libros
-
 @router.post("/libro/")
 async def crear_libro(libro: Libro):
     query = "INSERT INTO libros (titulo, ISBN, año_publicacion, editorial, autor, estado) VALUES (%s, %s, %s, %s, %s, %s)"
@@ -31,7 +54,8 @@ async def obtener_libros():
             "autor": libro[5],
             "estado": libro[6]
         }
-        lista_libros.append(libro_dict)
+        encrypted_libro = encrypt(key, json.dumps(libro_dict))
+        lista_libros.append(encrypted_libro)
     return {"data": lista_libros}
 
 # OBTENER LIBRO POR ID
@@ -51,7 +75,8 @@ async def obtener_libro(libro_id: int):
         "autor": libro[5],
         "estado": libro[6]
     }
-    return {"data": libro_dict}
+    encrypted_libro = encrypt(key, json.dumps(libro_dict))
+    return {"data": encrypted_libro}
 
 # OBTENER LIBRO POR ESTADO
 @router.get("/libros/estado/{estado}")
@@ -71,7 +96,8 @@ async def obtener_libros_por_estado(estado: str):
             "autor": libro[5],
             "estado": libro[6]
         }
-        lista_libros.append(libro_dict)
+        encrypted_libro = encrypt(key, json.dumps(libro_dict))
+        lista_libros.append(encrypted_libro)
         
     return {"data": lista_libros}
 
@@ -84,6 +110,7 @@ async def actualizar_libro(libro_id: int, libro: Libro):
     db_connection.commit()
     return {"mensaje": "Libro actualizado exitosamente"}
 
+# ACTUALIZAR ESTADO DE LOS LIBROS
 @router.put("/libros/{libro_id}/estado")
 async def actualizar_estado_libro(libro_id: int, estado: str):
     query = "UPDATE libros SET estado = %s WHERE libro_id = %s"
@@ -118,7 +145,8 @@ async def obtener_libros_por_titulo(titulo: str = Query(..., min_length=1)):
             "autor": libro[5],
             "estado": libro[6]
         }
-        lista_libros.append(libro_dict)
+        encrypted_libro = encrypt(key, json.dumps(libro_dict))
+        lista_libros.append(encrypted_libro)
         
     return {"data": lista_libros}
 
@@ -140,6 +168,7 @@ async def obtener_libros_por_autor(autor: str = Query(..., min_length=1)):
             "autor": libro[5],
             "estado": libro[6]
         }
-        lista_libros.append(libro_dict)
+        encrypted_libro = encrypt(key, json.dumps(libro_dict))
+        lista_libros.append(encrypted_libro)
         
     return {"data": lista_libros}

@@ -2,6 +2,29 @@ from fastapi import APIRouter, HTTPException
 from models import Prestamo
 from database import db_cursor, db_connection
 import json
+from Crypto.Cipher import AES
+
+key = b'mi_clave_secreta'
+
+import binascii
+
+def encrypt(key, data):
+    cipher = AES.new(key, AES.MODE_EAX)
+    ciphertext, tag = cipher.encrypt_and_digest(data.encode())
+
+    encrypted_data = cipher.nonce + tag + ciphertext
+    return binascii.hexlify(encrypted_data)
+
+def decrypt(key, encrypted_data):
+    encrypted_bytes = binascii.unhexlify(encrypted_data)
+    nonce = encrypted_bytes[:AES.block_size]
+    tag = encrypted_bytes[AES.block_size:AES.block_size * 2]
+    ciphertext = encrypted_bytes[AES.block_size * 2:]
+
+    cipher = AES.new(key, AES.MODE_EAX, nonce)
+    plaintext = cipher.decrypt_and_verify(ciphertext, tag)
+
+    return plaintext
 
 router = APIRouter()
 
@@ -29,7 +52,8 @@ async def obtener_prestamo(prestamo_id: int):
         "fecha_prestamo": str(prestamo[3]),
         "fecha_devolucion": str(prestamo[4]) if prestamo[4] else None
     }
-    return {"data": prestamo_dict}
+    encrypted_prestamo = encrypt(key, json.dumps(prestamo_dict))
+    return {"data": encrypted_prestamo}
 
 # ELIMINAR PRESTAMO
 @router.delete("/prestamos/{prestamo_id}")
@@ -52,5 +76,6 @@ async def obtener_prestamos():
             "fecha_prestamo": str(prestamo[2]),
             "fecha_devolucion": str(prestamo[3]) if prestamo[3] else None
         }
-        lista_prestamos.append(prestamo_dict)
+        encrypted_prestamo = encrypt(key, json.dumps(prestamo_dict))
+        lista_prestamos.append(encrypted_prestamo)
     return {"data": lista_prestamos}
